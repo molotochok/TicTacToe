@@ -18,10 +18,11 @@ namespace TicTacToe
         public event Action<string> GameFinishedTie; 
         public event EventHandler UIBoardChanged;
 
-        private bool _isGameRunning = true;
+        private bool _isGameRunning;
 
         public TicTacToe(Board board, Player playerX, Player playerO, DifficultyType difficulty)
         {
+            _isGameRunning = true;
             _board = board;
             _board.BoardChanged += _board_BoardChanged; ;
 
@@ -42,6 +43,7 @@ namespace TicTacToe
         }
 
         // Other methods
+
         /// <summary>
         /// Start the game
         /// </summary>
@@ -82,19 +84,31 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// Game over and there is winner
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="winningIndexes"></param>
         private void GameOver(string message, Int32[,] winningIndexes)
         {
+            Reset();
             GameFinishedWin.Invoke(message, winningIndexes);
         }
+        /// <summary>
+        /// Gamee over and there is tie
+        /// </summary>
+        /// <param name="message"></param>
         private void GameOver(string message)
         {
+            Reset();
             GameFinishedTie.Invoke(message);
         }
-
+        
         public void UpdateBoard(Button[,] buttons)
         {
             _board.Update(buttons);
         }
+
 
         public void PlayerMoved()
         {
@@ -117,6 +131,7 @@ namespace TicTacToe
         public void Reset()
         {
             _isGameRunning = false;
+            PlayerMoved();
             _board.Clean();
             CurrentTurn = Turn.PlayerX;
         }

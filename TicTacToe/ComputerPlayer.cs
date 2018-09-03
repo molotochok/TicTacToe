@@ -32,6 +32,10 @@ namespace TicTacToe
             CurrentBoard.UpdateBoardUI();
         }
 
+        /// <summary>
+        /// Find best move async
+        /// </summary>
+        /// <returns></returns>
         protected override Task MakeTurnAsync()
         {
             Action action = () =>

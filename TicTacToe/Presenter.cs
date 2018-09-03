@@ -10,8 +10,6 @@ namespace TicTacToe
         private bool _playerUseX = true;
 
         private TicTacToe _ticTacToe;
-        private Player _player1;
-        private Player _player2;
         private Board  _board = new Board();
 
         public Presenter(IMainForm view)
@@ -52,8 +50,6 @@ namespace TicTacToe
             _view.LabelTurn.Text = "X moves";
 
         }
-
-        
 
         private void _view_BtnChooseOClicked(object sender, EventArgs e)
         {
@@ -120,6 +116,11 @@ namespace TicTacToe
             StartGame();
         }
 
+        /// <summary>
+        /// If UIBoard changes - change board so that they are matched
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _ticTacToe_UIBoardChanged(object sender, EventArgs e)
         {
             Action action = () =>
@@ -186,8 +187,13 @@ namespace TicTacToe
                 }
             }
         }
+
+        /// <summary>
+        /// Starts game
+        /// </summary>
         private void StartGame()
         {
+            _ticTacToe?.Reset();
             _view.BtnRefresh.Enabled = false;
             _board.Clean();
             RefreshButtons();
@@ -198,30 +204,32 @@ namespace TicTacToe
             var difficultyComboBox = _view.ComboBoxDifficulty;
             Enum.TryParse(difficultyComboBox.SelectedItem.ToString(), out DifficultyType difficultyType);
 
-            _player1 = new HumanPlayer();
+            Player player1 = new HumanPlayer();
+            Player player2 = null;
             if (opponentType == PlayerType.Human)
             {
-                _player2 = new HumanPlayer();
+                player2 = new HumanPlayer();
             }
             else
             {
-                _player2 = new ComputerPlayer(difficultyType);
+                player2 = new ComputerPlayer(difficultyType);
             }
 
-            _player1.PlayersTurn = TicTacToe.Turn.PlayerX;
-            _player2.PlayersTurn = TicTacToe.Turn.PlayerO;
+            player1.PlayersTurn = TicTacToe.Turn.PlayerX;
+            player2.PlayersTurn = TicTacToe.Turn.PlayerO;
 
-            _ticTacToe = new TicTacToe(_board, _player1, _player2, difficultyType);
+            _ticTacToe = new TicTacToe(_board, player1, player2, difficultyType);
             _ticTacToe.GameFinishedWin += _ticTacToe_GameFinishedWin;
             _ticTacToe.GameFinishedTie += _ticTacToe_GameFinishedTie;
             _ticTacToe.UIBoardChanged += _ticTacToe_UIBoardChanged; ;
+
             if (!_playerUseX)
             {
-                _player2.PlayersTurn = TicTacToe.Turn.PlayerX;
-                _player1.PlayersTurn = TicTacToe.Turn.PlayerO;
+                player2.PlayersTurn = TicTacToe.Turn.PlayerX;
+                player1.PlayersTurn = TicTacToe.Turn.PlayerO;
 
-                _ticTacToe.PlayerX = _player2;
-                _ticTacToe.PlayerO = _player1;
+                _ticTacToe.PlayerX = player2;
+                _ticTacToe.PlayerO = player1;
             }
 
             _ticTacToe.Start();

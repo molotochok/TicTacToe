@@ -74,12 +74,11 @@
             // 
             // panelMenu
             // 
-            this.panelMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMenu.Controls.Add(this.groupBoxChoose);
             this.panelMenu.Controls.Add(this.btnConfirm);
             this.panelMenu.Controls.Add(this.groupBoxDifficulty);
             this.panelMenu.Controls.Add(this.groupBoxOpponent);
-            this.panelMenu.Location = new System.Drawing.Point(9, 3);
+            this.panelMenu.Location = new System.Drawing.Point(6, 3);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(628, 604);
             this.panelMenu.TabIndex = 4;
@@ -350,8 +349,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(630, 601);
             this.Controls.Add(this.panelGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
