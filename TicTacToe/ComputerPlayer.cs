@@ -55,7 +55,7 @@ namespace TicTacToe
                 var bestMove = new Move();
                 if (_isFirstTurn)
                 {
-                    bestMove = Move.Random(0, 2, 0, 2);
+                    bestMove = Move.Random(0, 3, 0, 3);
                     _isFirstTurn = false;
                 }
                 else
