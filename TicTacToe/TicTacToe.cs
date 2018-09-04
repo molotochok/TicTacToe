@@ -15,7 +15,8 @@ namespace TicTacToe
         public Turn CurrentTurn { get; private set; }
 
         public event Action<string, Int32[,]> GameFinishedWin;
-        public event Action<string> GameFinishedTie; 
+        public event Action<string> GameFinishedTie;
+        public event Action TurnChanged;
         public event EventHandler UIBoardChanged;
 
         private bool _isGameRunning;
@@ -75,6 +76,8 @@ namespace TicTacToe
 
                     CurrentTurn = Turn.PlayerX;
                 }
+
+                TurnChanged.Invoke();
 
                 if (!_board.IsMovesLeft())
                 {

@@ -97,12 +97,10 @@ namespace TicTacToe
             if(_ticTacToe.CurrentTurn == TicTacToe.Turn.PlayerX)
             {
                 button.Text = "X";
-                _view.LabelTurn.Text = "O moves";
             }
             else
             {
                 button.Text = "O";
-                _view.LabelTurn.Text = "X moves";
             }
 
             _ticTacToe.PlayerMoved();
@@ -221,7 +219,8 @@ namespace TicTacToe
             _ticTacToe = new TicTacToe(_board, player1, player2, difficultyType);
             _ticTacToe.GameFinishedWin += _ticTacToe_GameFinishedWin;
             _ticTacToe.GameFinishedTie += _ticTacToe_GameFinishedTie;
-            _ticTacToe.UIBoardChanged += _ticTacToe_UIBoardChanged; ;
+            _ticTacToe.UIBoardChanged += _ticTacToe_UIBoardChanged;
+            _ticTacToe.TurnChanged += _ticTacToe_TurnChanged;
 
             if (!_playerUseX)
             {
@@ -233,6 +232,19 @@ namespace TicTacToe
             }
 
             _ticTacToe.Start();
+        }
+
+        private void _ticTacToe_TurnChanged()
+        {
+            if (_ticTacToe.CurrentTurn == TicTacToe.Turn.PlayerX)
+            {
+                _view.LabelTurn.Text = "X moves";
+            }
+            else
+            {
+                _view.LabelTurn.Text = "O moves";
+            }
+
         }
     }
 }
